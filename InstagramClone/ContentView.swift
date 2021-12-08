@@ -8,9 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var isLiked: Bool = false
+    @State private var isBookmarked: Bool = false
+    
     var body: some View {
         ScrollView {
-            LazyVStack {
+            LazyVStack(spacing: 20) {
                 ForEach(0..<10) { index in
                     VStack(spacing: 0) {
                         HStack {
@@ -31,6 +35,7 @@ struct ContentView: View {
                             } label: {
                                 Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
                             }
+                            .foregroundColor(Color.primary)
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 5)
@@ -41,16 +46,16 @@ struct ContentView: View {
                                 .scaledToFill()
                                 .frame(width: geo.size.width, height: geo.size.height)
                         }
-                        .frame(height: 500)
+                        .frame(height: 400)
                         
                         HStack {
                             
                             Button {
-                                
+                                self.isLiked.toggle()
                             } label: {
-                                Image(systemName: "heart")
-                            }.foregroundColor(.secondary)
-
+                                Image(systemName: self.isLiked == true ? "heart.fill" : "heart")
+                            }
+                            
                             Button {
                                 
                             } label: {
@@ -62,30 +67,31 @@ struct ContentView: View {
                             } label: {
                                 Image(systemName: "paperplane")
                             }
-                        
+                            
                             Spacer()
                             
                             Button {
-                                
+                                self.isBookmarked.toggle()
                             } label: {
-                                Image(systemName: "bookmark")
+                                Image(systemName: self.isBookmarked == true ? "bookmark.fill" : "bookmark")
                             }
                             
                             
                         }
+                        .font(.callout)
                         .foregroundColor(Color.primary)
                         .padding(.horizontal)
                     }
                 }
             }
         }
-
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
     }
 }
