@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InstagramClone: View {
+struct ContentView: View {
     var body: some View {
         ScrollView {
             LazyVStack {
@@ -35,7 +35,7 @@ struct InstagramClone: View {
                             Image("ben")
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: geo.size.width, height: geo.size.height * 1)
+                                .frame(width: geo.size.width, height: geo.size.height)
                         }
                         .frame(height: 500)
                         
@@ -56,9 +56,9 @@ struct InstagramClone: View {
     }
 }
 
-struct InstagramClone_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        InstagramClone()
+        ContentView()
             .preferredColorScheme(.dark)
     }
 }
