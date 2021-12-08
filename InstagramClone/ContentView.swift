@@ -26,7 +26,11 @@ struct ContentView: View {
                             
                             Spacer()
                             
-                            Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                            }
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 5)
@@ -40,11 +44,34 @@ struct ContentView: View {
                         .frame(height: 500)
                         
                         HStack {
-                            Image(systemName: "heart")
-                            Image(systemName: "message")
-                            Image(systemName: "paperplane")
+                            
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "heart")
+                            }.foregroundColor(.secondary)
+
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "message")
+                            }
+                            
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "paperplane")
+                            }
+                        
                             Spacer()
-                            Image(systemName: "bookmark")
+                            
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "bookmark")
+                            }
+                            
+                            
                         }
                         .foregroundColor(Color.primary)
                         .padding(.horizontal)
@@ -59,6 +86,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(.light)
     }
 }
