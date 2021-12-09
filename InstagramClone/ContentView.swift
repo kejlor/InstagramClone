@@ -61,9 +61,14 @@ struct CompletePost: View {
     
     @State var isLiked: Bool = false
     @State var isBookmarked: Bool = false
+    @State var isTapped: Bool = false
+    @State private var animationAmount: CGFloat = 1
+    @State private var heartBits: Int = 0
     let nickName: String
     let avatar: String
     let postedImage: String
+    
+    
     
     var body: some View {
         
@@ -92,10 +97,28 @@ struct CompletePost: View {
             .padding(.bottom, 5)
             
             GeometryReader { geo in
-                Image(postedImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: geo.size.width, height: geo.size.height)
+                ZStack {
+                    Image(postedImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .onTapGesture(count: 2) {
+                            isTapped.toggle()
+                            isLiked.toggle()
+                        }
+                    if isTapped {
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .foregroundColor(.white)
+                            .scaleEffect(animationAmount)
+                            .animation(Animation.linear(duration: 0.1).delay(0.4).repeatCount(2))
+                            .onAppear {
+                                heartBits += 1
+                                animationAmount = 1.2
+                            }
+                    }
+                }
             }
             .frame(height: 400)
             
@@ -106,6 +129,7 @@ struct CompletePost: View {
                 } label: {
                     Image(systemName: self.isLiked == true ? "heart.fill" : "heart")
                 }
+                .foregroundColor(self.isLiked == true ? Color.red : Color.primary )
                 
                 Button {
                     
@@ -130,6 +154,12 @@ struct CompletePost: View {
             .font(.callout)
             .foregroundColor(Color.primary)
             .padding(.horizontal)
+        }
+    }
+    func resetTapButton() {
+        if heartBits == 2 {
+            isTapped.toggle()
+            heartBits = 0
         }
     }
 }
