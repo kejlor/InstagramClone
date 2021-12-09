@@ -99,8 +99,6 @@ struct CompletePost: View {
                 } label: {
                     Image(systemName: self.isBookmarked == true ? "bookmark.fill" : "bookmark")
                 }
-                
-                
             }
             .font(.callout)
             .foregroundColor(Color.primary)
