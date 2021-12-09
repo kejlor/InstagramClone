@@ -9,8 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        storyLayer
-        contentLayer
+        appContent
+    }
+    
+    var appContent: some View {
+        Section(header: headerLayer) {
+            ScrollView {
+                storyLayer
+                contentLayer
+            }
+        }
+    }
+    
+    var headerLayer: some View {
+        HStack {
+            HeaderElements()
+        }
     }
     var storyLayer: some View {
         ScrollView(.horizontal,showsIndicators: false) {
@@ -149,5 +163,22 @@ struct StoryEntry: View {
         }
         .frame(maxWidth: 90)
         .padding(5)
+    }
+}
+
+struct HeaderElements: View {
+    var body: some View {
+        Text("Instagram")
+            .frame(alignment: .leading)
+            .padding()
+        
+        Spacer()
+        
+        Image(systemName: "plus.app")
+            .padding(3)
+        Image(systemName: "heart")
+            .padding(3)
+        Image(systemName: "paperplane")
+            .padding(3)
     }
 }
