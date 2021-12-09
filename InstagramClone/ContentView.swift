@@ -9,7 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        storyLayer
         contentLayer
+    }
+    var storyLayer: some View {
+        ScrollView(.horizontal,showsIndicators: false) {
+            HStack(spacing: 20) {
+                StoryEntry(nickName: "best_left_wingback", avatar: "ben")
+                StoryEntry(nickName: "lisa", avatar: "lisa1")
+                StoryEntry(nickName: "best_left_wingback", avatar: "ben")
+                StoryEntry(nickName: "lisa", avatar: "lisa1")
+                StoryEntry(nickName: "best_left_wingback", avatar: "ben")
+                StoryEntry(nickName: "lisa", avatar: "lisa1")
+            }
+        }
     }
     var contentLayer: some View {
         ScrollView {
@@ -104,5 +117,37 @@ struct CompletePost: View {
             .foregroundColor(Color.primary)
             .padding(.horizontal)
         }
+    }
+}
+
+struct StoryEntry: View {
+    
+    let nickName: String
+    let avatar: String
+    
+    var body: some View {
+        VStack {
+            ZStack(alignment: .center) {
+                Image(avatar)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
+                    .clipShape(Circle())
+                
+                Circle()
+                    .stroke(
+                        AngularGradient(
+                            gradient: .init(colors: [Color.orange, Color.pink]),
+                            center: .center))
+                    .frame(width: 85, height: 85)
+            }
+            
+            Text(nickName)
+                .font(.headline)
+                .fontWeight(.bold)
+                .frame(maxWidth: 90)
+        }
+        .frame(maxWidth: 90)
+        .padding(5)
     }
 }
