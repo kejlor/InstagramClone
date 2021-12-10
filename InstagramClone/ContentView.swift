@@ -157,40 +157,46 @@ struct CompletePost: View {
             .padding(.horizontal)
         }
     }
-    func resetTapButton() {
-        isTapped.toggle()
-    }
 }
 
 struct StoryEntry: View {
     
-    let nickName: String
-    let avatar: String
+    @State var showSheet: Bool = false
+    @State var nickName: String = ""
+    @State var avatar: String = ""
     
     var body: some View {
-        VStack {
-            ZStack(alignment: .center) {
-                Image(avatar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80, height: 80)
-                    .clipShape(Circle())
+        
+        Button {
+            showSheet.toggle()
+        } label : {
+            VStack {
+                ZStack(alignment: .center) {
+                    Image(avatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .clipShape(Circle())
+                    
+                    Circle()
+                        .stroke(
+                            AngularGradient(
+                                gradient: .init(colors: [Color.orange, Color.pink]),
+                                center: .center))
+                        .frame(width: 85, height: 85)
+                }
                 
-                Circle()
-                    .stroke(
-                        AngularGradient(
-                            gradient: .init(colors: [Color.orange, Color.pink]),
-                            center: .center))
-                    .frame(width: 85, height: 85)
+                Text(nickName)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: 90)
             }
-            
-            Text(nickName)
-                .font(.headline)
-                .fontWeight(.bold)
-                .frame(maxWidth: 90)
-        }
-        .frame(maxWidth: 90)
-        .padding(5)
+            .frame(maxWidth: 90)
+            .padding(5)
+        }.fullScreenCover(isPresented: $showSheet, content: {
+            SecondScreen(nickName: $nickName, avatar: $avatar)
+        })
     }
 }
 
@@ -210,3 +216,71 @@ struct HeaderElements: View {
             .padding(3)
     }
 }
+
+struct SecondScreen: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var nickName: String
+    @Binding var avatar: String
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Image(avatar)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 30, height: 30)
+                    .clipShape(Circle())
+                
+                Text(nickName)
+                    .font(.caption)
+                    .bold()
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                }
+                .foregroundColor(Color.primary)
+            }
+            .padding(.horizontal)
+            .padding(.bottom, 5)
+            
+            Image(systemName: "lisa2")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(
+//                    width: UIScreen.main.bounds.width,
+//                    height: UIScreen.main.bounds.height * 0.6 )
+            
+            HStack {
+                Spacer()
+                Button {
+                    
+                } label: {
+                    
+                    Text("Hello, World!")
+                        .background(RoundedRectangle(cornerRadius: 30)
+                                        .stroke()
+                                        .frame(
+                                            width: UIScreen.main.bounds.width * 0.85,
+                                            height: 20))
+                }
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "paperplane")
+                }
+                .padding(.leading, 10)
+                .padding(.trailing, 10)
+            }
+        }
+    }
+}
+
