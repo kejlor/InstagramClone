@@ -224,61 +224,65 @@ struct SecondScreen: View {
     @Binding var avatar: String
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Image(avatar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .clipShape(Circle())
-                
-                Text(nickName)
-                    .font(.caption)
-                    .bold()
-                
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
-                }
-                .foregroundColor(Color.primary)
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 5)
-            
-            Image(systemName: "lisa2")
+        ZStack {
+            Image(systemName: "ben")
 //                .resizable()
 //                .scaledToFit()
 //                .frame(
 //                    width: UIScreen.main.bounds.width,
-//                    height: UIScreen.main.bounds.height * 0.6 )
+//                    height: UIScreen.main.bounds.height * 0.9)
             
-            HStack {
-                Spacer()
-                Button {
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(avatar)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .clipShape(Circle())
                     
-                } label: {
+                    Text(nickName)
+                        .font(.caption)
+                        .bold()
                     
-                    Text("Hello, World!")
-                        .background(RoundedRectangle(cornerRadius: 30)
-                                        .stroke()
-                                        .frame(
-                                            width: UIScreen.main.bounds.width * 0.85,
-                                            height: 20))
+                    Spacer()
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                    }
+                    .foregroundColor(Color.primary)
                 }
-                .padding()
+                .padding(.horizontal)
+                .padding(.bottom, 5)
                 
-                Spacer()
-                
-                Button {
+                HStack {
+                    Spacer()
+                    Button {
+                        
+                    } label: {
+                        
+                        Text("Hello, World!")
+                            .background(RoundedRectangle(cornerRadius: 30)
+                                            .stroke()
+                                            .frame(
+                                                width: UIScreen.main.bounds.width * 0.85,
+                                                height: 20))
+                            .foregroundColor(.primary)
+                    }
+                    .padding()
                     
-                } label: {
-                    Image(systemName: "paperplane")
+                    Spacer()
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "paperplane")
+                            .foregroundColor(.primary)
+                    }
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
                 }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
             }
         }
     }
