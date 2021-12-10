@@ -63,7 +63,6 @@ struct CompletePost: View {
     @State var isBookmarked: Bool = false
     @State var isTapped: Bool = false
     @State private var animationAmount: CGFloat = 1
-    @State private var heartBits: Int = 0
     let nickName: String
     let avatar: String
     let postedImage: String
@@ -105,19 +104,21 @@ struct CompletePost: View {
                         .onTapGesture(count: 2) {
                             isTapped.toggle()
                             isLiked.toggle()
-                        }
-                    if isTapped {
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .foregroundColor(.white)
-                            .scaleEffect(animationAmount)
-                            .animation(Animation.linear(duration: 0.1).delay(0.4).repeatCount(2))
-                            .onAppear {
-                                heartBits += 1
-                                animationAmount = 1.2
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                isTapped.toggle()
                             }
-                    }
+                        }
+                    
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50, alignment: .center)
+                        .foregroundColor(.white)
+                        .scaleEffect(animationAmount)
+                        .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                        .onAppear {
+                            animationAmount = 1.2
+                        }
+                        .opacity(isTapped && isLiked ? 1.0 : 0.0)
                 }
             }
             .frame(height: 400)
@@ -157,10 +158,7 @@ struct CompletePost: View {
         }
     }
     func resetTapButton() {
-        if heartBits == 2 {
-            isTapped.toggle()
-            heartBits = 0
-        }
+        isTapped.toggle()
     }
 }
 
