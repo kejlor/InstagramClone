@@ -19,9 +19,9 @@ struct StoryScreen: View {
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-//                .frame(
-//                    width: UIScreen.main.bounds.width,
-//                    height: UIScreen.main.bounds.height * 0.9)
+            //                .frame(
+            //                    width: UIScreen.main.bounds.width,
+            //                    height: UIScreen.main.bounds.height * 0.9)
             
             VStack(alignment: .leading) {
                 HStack {
@@ -79,10 +79,8 @@ struct StoryScreen: View {
     }
 }
 
-
-
-struct StoryScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        StoryScreen()
-    }
-}
+//struct StoryScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StoryScreen(nickName: <#Binding<String>#>, avatar: <#Binding<String>#>)
+//    }
+//}

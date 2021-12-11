@@ -63,11 +63,15 @@ struct CompletePost: View {
     @State var isBookmarked: Bool = false
     @State var isTapped: Bool = false
     @State private var animationAmount: CGFloat = 1
+    @State var showActionSheet: Bool = false
+    @State var actionSheetOptions: ActionSheetOptions = .isOtherPost
     let nickName: String
     let avatar: String
     let postedImage: String
     
-    
+    enum ActionSheetOptions {
+        case isMyPost, isOtherPost
+    }
     
     var body: some View {
         
@@ -86,7 +90,8 @@ struct CompletePost: View {
                 Spacer()
                 
                 Button {
-                    
+                    actionSheetOptions = .isOtherPost
+                    showActionSheet.toggle()
                 } label: {
                     Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
                 }
@@ -155,6 +160,45 @@ struct CompletePost: View {
             .font(.callout)
             .foregroundColor(Color.primary)
             .padding(.horizontal)
+        }
+        .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
+    }
+    
+    func getActionSheet() -> ActionSheet {
+        
+        let linkButton: ActionSheet.Button = .default(Text("Link")) {
+            // add code to link post
+        }
+        let shareButton: ActionSheet.Button = .default(Text("Share")) {
+            // add code to share post
+        }
+        let reportButton: ActionSheet.Button = .destructive(Text("Report")) {
+            // add code to report post
+        }
+        let deleteButton: ActionSheet.Button = .destructive(Text("Delete")) {
+            // add code to delete post
+        }
+        let whyAreYouSeeingThisButton: ActionSheet.Button = .default(Text("Why you're seeing this post")) {
+            // add code
+        }
+        let unfollowButton: ActionSheet.Button = .default(Text("Unfollow")) {
+            // add code to unfollow
+        }
+        let cancelButton: ActionSheet.Button = .cancel()
+        
+        let title = Text("What would you like to do?")
+        
+        switch actionSheetOptions {
+        case .isMyPost:
+            return ActionSheet(
+                title: title,
+                message: nil,
+                buttons: [linkButton, shareButton, reportButton, deleteButton, cancelButton])
+        case .isOtherPost:
+            return ActionSheet(
+                title: title,
+                message: nil,
+                buttons: [linkButton, shareButton, reportButton, whyAreYouSeeingThisButton , unfollowButton, cancelButton])
         }
     }
 }
