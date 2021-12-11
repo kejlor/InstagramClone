@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StoryScreen: View {
     
+    @State var messageText: String = ""
     @Environment(\.presentationMode) var presentationMode
     @Binding var nickName: String
     @Binding var avatar: String
@@ -50,10 +51,10 @@ struct StoryScreen: View {
                 HStack {
                     Spacer()
                     Button {
-                        
+                        sendMessage()
                     } label: {
                         
-                        Text("Hello, World!")
+                        TextField("Hello, World!", text: $messageText)
                             .background(RoundedRectangle(cornerRadius: 30)
                                             .stroke()
                                             .frame(
@@ -76,6 +77,11 @@ struct StoryScreen: View {
                 }
             }
         }
+    }
+
+    func sendMessage() {
+        // add code to send messages
+        messageText = ""
     }
 }
 
