@@ -9,10 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        appContent
-    }
-    
-    var appContent: some View {
         Section(header: headerLayer) {
             ScrollView {
                 storyLayer
@@ -20,7 +16,7 @@ struct ContentView: View {
             }
         }
     }
-    
+        
     var headerLayer: some View {
         HStack {
             HeaderElements()
