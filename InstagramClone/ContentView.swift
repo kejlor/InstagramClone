@@ -42,7 +42,6 @@ struct ContentView: View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben", "lisa1", "lisa2"])
-                CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["house", "heart.fill", "house.fill"])
                 CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"])
                 CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"])
                 CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2"])
@@ -103,38 +102,23 @@ struct CompletePost: View {
             
             GeometryReader { geo in
                 ZStack {
-                    if postedImages.count == 1 {
-                        Image(postedImages[0])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .onTapGesture(count: 2) {
-                                isTapped.toggle()
-                                isLiked.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                    TabView {
+                        ForEach(0..<postedImages.count,
+                                id: \.self) { image in
+                            Image(postedImages[image])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: geo.size.width, height: geo.size.height)
+                                .onTapGesture(count: 2) {
                                     isTapped.toggle()
-                                }
-                            }
-                    } else {
-                        TabView {
-                            ForEach(postedImages,
-                                    id: \.self) { image in
-                                Image(systemName: image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: geo.size.width, height: geo.size.height)
-                                    .onTapGesture(count: 2) {
+                                    isLiked.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                                         isTapped.toggle()
-                                        isLiked.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                            isTapped.toggle()
-                                        }
                                     }
-                            }
+                                }
                         }
-                        .tabViewStyle(PageTabViewStyle())
-                        
                     }
+                    .tabViewStyle(PageTabViewStyle())
                     
                     Image(systemName: "heart.fill")
                         .resizable()
