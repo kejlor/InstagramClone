@@ -55,12 +55,12 @@ struct ContentView_Previews: PreviewProvider {
 
 struct CompletePost: View {
     
-    @State var isLiked: Bool = false
-    @State var isBookmarked: Bool = false
-    @State var isTapped: Bool = false
+    @State private var isLiked = false
+    @State private var isBookmarked = false
+    @State private var isTapped = false
     @State private var animationAmount: CGFloat = 1
-    @State var showActionSheet: Bool = false
-    @State var actionSheetOptions: ActionSheetOptions = .isOtherPost
+    @State private var showActionSheet = false
+    @State private var actionSheetOptions: ActionSheetOptions = .isOtherPost
     let nickName: String
     let avatar: String
     let postedImages: [String]
@@ -207,9 +207,9 @@ struct CompletePost: View {
 
 struct StoryEntry: View {
     
-    @State var showSheet: Bool = false
-    @State var nickName: String = ""
-    @State var avatar: String = ""
+    @State private var showSheet = false
+    @State private var nickName = ""
+    @State private var avatar = ""
     
     var body: some View {
         
