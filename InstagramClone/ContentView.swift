@@ -254,11 +254,11 @@ struct HeaderElements: View {
         
         Spacer()
         
-        Image(systemName: "plus.app")
-            .padding(3)
-        Image(systemName: "heart")
-            .padding(3)
-        Image(systemName: "paperplane")
-            .padding(3)
+        Group {
+            Image(systemName: "plus.app")
+            Image(systemName: "heart")
+            Image(systemName: "paperplane")
+        }
+        .padding(3)
     }
 }
