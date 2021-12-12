@@ -1,13 +1,13 @@
 //
-//  StoryScreen.swift
+//  StoryScreenView.swift
 //  InstagramClone
 //
-//  Created by Bartosz Wojtkowiak on 10/12/2021.
+//  Created by Bartosz Wojtkowiak on 12/12/2021.
 //
 
 import SwiftUI
 
-struct StoryScreen: View {
+struct StoryScreenView: View {
     
     @State private var messageText = ""
     @Environment(\.presentationMode) var presentationMode
@@ -86,8 +86,8 @@ struct StoryScreen: View {
     }
 }
 
-struct StoryScreen_Previews: PreviewProvider {
+struct StoryScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryScreen(nickName: .constant("ben"), avatar: .constant("ben"))
+        StoryScreenView(nickName: .constant("ben"), avatar: .constant("ben"))
     }
 }

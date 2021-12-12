@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let storyEntries = [ StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
-                         StoryEntry(nickName: "lisa", avatar: "lisa1"),
-                         StoryEntry(nickName: "fake_lisa", avatar: "lisa2"),
-                         StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
-                         StoryEntry(nickName: "lisa", avatar: "lisa1"),
-                         StoryEntry(nickName: "fake_lisa", avatar: "lisa2")]
-    let completePosts = [CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages:                                      ["ben", "lisa1", "lisa2"]),
-                         CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"]),
-                         CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"]),
-                         CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2"])]
+    let storyEntries = [ StoryEntryView(nickName: "best_left_wingback", avatar: "ben"),
+                         StoryEntryView(nickName: "lisa", avatar: "lisa1"),
+                         StoryEntryView(nickName: "fake_lisa", avatar: "lisa2"),
+                         StoryEntryView(nickName: "best_left_wingback", avatar: "ben"),
+                         StoryEntryView(nickName: "lisa", avatar: "lisa1"),
+                         StoryEntryView(nickName: "fake_lisa", avatar: "lisa2")]
+    let completePosts = [CompletePostView(nickName: "best_left_wingback", avatar: "ben", postedImages:                                      ["ben", "lisa1", "lisa2"]),
+                         CompletePostView(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"]),
+                         CompletePostView(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"]),
+                         CompletePostView(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2"])]
     
     var body: some View {
         Section(header: headerLayer) {
@@ -31,7 +31,7 @@ struct ContentView: View {
     
     var headerLayer: some View {
         HStack {
-            HeaderElements()
+            HeaderElementsView()
         }
     }
     

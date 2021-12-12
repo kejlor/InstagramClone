@@ -1,5 +1,5 @@
 //
-//  HeaderElements.swift
+//  HeaderElementsView.swift
 //  InstagramClone
 //
 //  Created by Bartosz Wojtkowiak on 12/12/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HeaderElements: View {
+struct HeaderElementsView: View {
     var body: some View {
         Text("Instagram")
             .frame(alignment: .leading)
@@ -24,8 +24,8 @@ struct HeaderElements: View {
     }
 }
 
-struct HeaderElements_Previews: PreviewProvider {
+struct HeaderElementsView_Previews: PreviewProvider {
     static var previews: some View {
-        HeaderElements()
+        HeaderElementsView()
     }
 }

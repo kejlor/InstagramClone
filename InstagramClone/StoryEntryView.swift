@@ -1,5 +1,5 @@
 //
-//  StoryEntry.swift
+//  StoryEntryView.swift
 //  InstagramClone
 //
 //  Created by Bartosz Wojtkowiak on 12/12/2021.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoryEntry: View {
+struct StoryEntryView: View {
     
     @State private var showSheet = false
     @State private var nickName = ""
@@ -48,13 +48,13 @@ struct StoryEntry: View {
             .frame(maxWidth: 90)
             .padding(5)
         }.fullScreenCover(isPresented: $showSheet, content: {
-            StoryScreen(nickName: $nickName, avatar: $avatar)
+            StoryScreenView(nickName: $nickName, avatar: $avatar)
         })
     }
 }
 
-struct StoryEntry_Previews: PreviewProvider {
+struct StoryEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryEntry(nickName: "ben", avatar: "ben")
+        StoryEntryView(nickName: "ben", avatar: "ben")
     }
 }
