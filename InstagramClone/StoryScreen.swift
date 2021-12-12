@@ -15,16 +15,16 @@ struct StoryScreen: View {
     @Binding var avatar: String
     
     var body: some View {
-        ZStack {
-            Image(systemName: "ben")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            //                .frame(
-            //                    width: UIScreen.main.bounds.width,
-            //                    height: UIScreen.main.bounds.height * 0.9)
-            
-            VStack(alignment: .leading) {
+        VStack {
+            ZStack(alignment: .topLeading) {
+                Image("ben")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                                .frame(
+                                    width: UIScreen.main.bounds.width,
+                                    height: UIScreen.main.bounds.height * 0.9)
+                
                 HStack {
                     Image(avatar)
                         .resizable()
@@ -35,6 +35,7 @@ struct StoryScreen: View {
                     Text(nickName)
                         .font(.caption)
                         .bold()
+                        .foregroundColor(.white)
                     
                     Spacer()
                     
@@ -47,34 +48,34 @@ struct StoryScreen: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 5)
-                
-                HStack {
-                    Spacer()
-                    Button {
-                        sendMessage()
-                    } label: {
-                        
-                        TextField("Hello, World!", text: $messageText)
-                            .background(RoundedRectangle(cornerRadius: 30)
-                                            .stroke()
-                                            .frame(
-                                                width: UIScreen.main.bounds.width * 0.85,
-                                                height: 20))
-                            .foregroundColor(.primary)
-                    }
-                    .padding()
+            }
+            
+            HStack {
+                Spacer()
+                Button {
+                    sendMessage()
+                } label: {
                     
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "paperplane")
-                            .foregroundColor(.primary)
-                    }
-                    .padding(.leading, 10)
-                    .padding(.trailing, 10)
+                    TextField("Hello, World!", text: $messageText)
+                        .background(RoundedRectangle(cornerRadius: 30)
+                                        .stroke()
+                                        .frame(
+                                            width: UIScreen.main.bounds.width * 0.85,
+                                            height: 20))
+                        .foregroundColor(.primary)
                 }
+                .padding()
+                
+                Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "paperplane")
+                        .foregroundColor(.primary)
+                }
+                .padding(.leading, 10)
+                .padding(.trailing, 10)
             }
         }
     }
