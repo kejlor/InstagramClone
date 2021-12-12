@@ -21,9 +21,9 @@ struct StoryScreen: View {
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
-                                .frame(
-                                    width: UIScreen.main.bounds.width,
-                                    height: UIScreen.main.bounds.height * 0.9)
+                    .frame(
+                        width: UIScreen.main.bounds.width,
+                        height: UIScreen.main.bounds.height * 0.9)
                 
                 HStack {
                     Image(avatar)
@@ -79,7 +79,7 @@ struct StoryScreen: View {
             }
         }
     }
-
+    
     func sendMessage() {
         // add code to send messages
         messageText = ""
