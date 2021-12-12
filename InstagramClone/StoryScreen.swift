@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoryScreen: View {
     
-    @State var messageText: String = ""
+    @State private var messageText = ""
     @Environment(\.presentationMode) var presentationMode
     @Binding var nickName: String
     @Binding var avatar: String
