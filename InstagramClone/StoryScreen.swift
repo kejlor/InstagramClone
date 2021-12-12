@@ -86,8 +86,8 @@ struct StoryScreen: View {
     }
 }
 
-//struct StoryScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StoryScreen(nickName: <#Binding<String>#>, avatar: <#Binding<String>#>)
-//    }
-//}
+struct StoryScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        StoryScreen(nickName: .constant("ben"), avatar: .constant("ben"))
+    }
+}
