@@ -42,6 +42,7 @@ struct ContentView: View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben", "lisa1", "lisa2"])
+                CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["house", "heart.fill", "house.fill"])
                 CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"])
                 CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"])
                 CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2"])
