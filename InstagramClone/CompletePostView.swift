@@ -7,6 +7,29 @@
 
 import SwiftUI
 
+struct CompletePost {
+    let id = UUID()
+    let nickName: String
+    let avatar: String
+    let postedImages: [String]
+}
+
+class CompletePostViewModel: ObservableObject {
+    @Published var completePostsArray: [CompletePost] = []
+    
+    init() {
+        getCompletePosts()
+    }
+    
+    func getCompletePosts() {
+        self.completePostsArray.append(contentsOf: [
+            CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben", "lisa1", "lisa2"]),
+            CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"]),
+            CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"]),
+            CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2", "lisa1"])])
+    }
+}
+
 struct CompletePostView: View {
     
     @State private var isLiked = false
@@ -15,6 +38,8 @@ struct CompletePostView: View {
     @State private var animationAmount: CGFloat = 1
     @State private var showActionSheet = false
     @State private var actionSheetOptions: ActionSheetOptions = .isOtherPost
+    @StateObject var completePostViewModel = CompletePostViewModel()
+    
     let nickName: String
     let avatar: String
     let postedImages: [String]
@@ -27,6 +52,9 @@ struct CompletePostView: View {
     var body: some View {
         
         VStack(spacing: 5) {
+            ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+                
+            }
             HStack {
                 Image(avatar)
                     .resizable()

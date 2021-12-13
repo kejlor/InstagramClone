@@ -7,12 +7,37 @@
 
 import SwiftUI
 
+struct StoryEntry {
+    let id = UUID()
+    let nickName: String
+    let avatar: String
+}
+
+class StoryEntryViewModel: ObservableObject {
+    @Published var storyEntriesArray: [StoryEntry] = []
+    
+    init() {
+        getStoryEntries()
+    }
+    
+    func getStoryEntries() {
+        self.storyEntriesArray.append(contentsOf: [
+            StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
+            StoryEntry(nickName: "lisa", avatar: "lisa1"),
+            StoryEntry(nickName: "fake_lisa", avatar: "lisa2"),
+            StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
+            StoryEntry(nickName: "lisa", avatar: "lisa1"),
+            StoryEntry(nickName: "fake_lisa", avatar: "lisa2")])
+    }
+}
+
 struct StoryEntryView: View {
     
     @State private var showSheet = false
     @State private var nickName = ""
     @State private var avatar = ""
     var id = UUID()
+    @StateObject var storyEntryViewModel = StoryEntryViewModel()
     
     init( nickName: String, avatar: String) {
         _nickName = State(wrappedValue: nickName)
@@ -23,6 +48,9 @@ struct StoryEntryView: View {
         Button {
             showSheet.toggle()
         } label : {
+            ForEach(storyEntryViewModel.storyEntriesArray, id: \.id) { storyEntry in
+                
+            }
             VStack {
                 ZStack(alignment: .center) {
                     Image(avatar)
