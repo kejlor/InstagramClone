@@ -11,71 +11,72 @@ struct StoryScreenView: View {
     
     @State private var messageText = ""
     @Environment(\.presentationMode) var presentationMode
-    @Binding var nickName: String
-    @Binding var avatar: String
+    @ObservedObject var storyEntryViewModel = StoryEntryViewModel()
     
     var body: some View {
-        VStack {
-            ZStack(alignment: .topLeading) {
-                Image("ben")
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(
-                        width: UIScreen.main.bounds.width,
-                        height: UIScreen.main.bounds.height * 0.9)
+        ForEach(storyEntryViewModel.storyEntriesArray, id: \.id) { storyEntry in
+            VStack {
+                ZStack(alignment: .topLeading) {
+                    Image("ben")
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+                        .frame(
+                            width: UIScreen.main.bounds.width,
+                            height: UIScreen.main.bounds.height * 0.9)
+                    
+                    HStack {
+                        Image(storyEntry.avatar)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                        
+                        Text(storyEntry.nickName)
+                            .font(.caption)
+                            .bold()
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                        }
+                        .foregroundColor(Color.primary)
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 5)
+                }
                 
                 HStack {
-                    Image(avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                        .clipShape(Circle())
-                    
-                    Text(nickName)
-                        .font(.caption)
-                        .bold()
-                        .foregroundColor(.white)
+                    Spacer()
+                    Button {
+                        sendMessage()
+                    } label: {
+                        
+                        TextField("Hello, World!", text: $messageText)
+                            .background(RoundedRectangle(cornerRadius: 30)
+                                            .stroke()
+                                            .frame(
+                                                width: UIScreen.main.bounds.width * 0.85,
+                                                height: 20))
+                            .foregroundColor(.primary)
+                    }
+                    .padding()
                     
                     Spacer()
                     
                     Button {
                         
                     } label: {
-                        Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                        Image(systemName: "paperplane")
+                            .foregroundColor(.primary)
                     }
-                    .foregroundColor(Color.primary)
+                    .padding(.leading, 10)
+                    .padding(.trailing, 10)
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 5)
-            }
-            
-            HStack {
-                Spacer()
-                Button {
-                    sendMessage()
-                } label: {
-                    
-                    TextField("Hello, World!", text: $messageText)
-                        .background(RoundedRectangle(cornerRadius: 30)
-                                        .stroke()
-                                        .frame(
-                                            width: UIScreen.main.bounds.width * 0.85,
-                                            height: 20))
-                        .foregroundColor(.primary)
-                }
-                .padding()
-                
-                Spacer()
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "paperplane")
-                        .foregroundColor(.primary)
-                }
-                .padding(.leading, 10)
-                .padding(.trailing, 10)
             }
         }
     }
@@ -88,6 +89,6 @@ struct StoryScreenView: View {
 
 struct StoryScreenView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryScreenView(nickName: .constant("ben"), avatar: .constant("ben"))
+        StoryScreenView()
     }
 }

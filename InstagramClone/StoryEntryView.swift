@@ -34,15 +34,7 @@ class StoryEntryViewModel: ObservableObject {
 struct StoryEntryView: View {
     
     @State private var showSheet = false
-//    @State private var nickName = ""
-//    @State private var avatar = ""
-//    var id = UUID()
     @StateObject var storyEntryViewModel = StoryEntryViewModel()
-    
-//    init( nickName: String, avatar: String) {
-//        _nickName = State(wrappedValue: nickName)
-//        _avatar = State(wrappedValue: avatar)
-//    }
     
     var body: some View {
         
@@ -75,7 +67,7 @@ struct StoryEntryView: View {
                 .frame(maxWidth: 90)
                 .padding(5)
             }.fullScreenCover(isPresented: $showSheet, content: {
-//                StoryScreenView(nickName: $storyEntry.nickName, avatar: $storyEntry.avatar)
+                StoryScreenView()
             })
         }
     }

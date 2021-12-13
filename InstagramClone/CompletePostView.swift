@@ -40,19 +40,15 @@ struct CompletePostView: View {
     @State private var actionSheetOptions: ActionSheetOptions = .isOtherPost
     @StateObject var completePostViewModel = CompletePostViewModel()
     
-//    let nickName: String
-//    let avatar: String
-//    let postedImages: [String]
-//    var id = UUID()
-    
     enum ActionSheetOptions {
         case isMyPost, isOtherPost
     }
     
     var body: some View {
         
-        VStack(spacing: 5) {
-            ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+            VStack(spacing: 5) {
+                
                 HStack {
                     Image(completePost.avatar)
                         .resizable()
@@ -110,42 +106,42 @@ struct CompletePostView: View {
                     }
                 }
                 .frame(height: 400)
+                HStack {
+                    
+                    Button {
+                        self.isLiked.toggle()
+                    } label: {
+                        Image(systemName: self.isLiked == true ? "heart.fill" : "heart")
+                    }
+                    .foregroundColor(self.isLiked == true ? Color.red : Color.primary )
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "message")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "paperplane")
+                    }
+                    
+                    Spacer()
+                    
+                    Button {
+                        self.isBookmarked.toggle()
+                    } label: {
+                        Image(systemName: self.isBookmarked == true ? "bookmark.fill" : "bookmark")
+                    }
+                }
+                .font(.callout)
+                .foregroundColor(Color.primary)
+                .padding(.horizontal)
             }
+            .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
             
-            HStack {
-                
-                Button {
-                    self.isLiked.toggle()
-                } label: {
-                    Image(systemName: self.isLiked == true ? "heart.fill" : "heart")
-                }
-                .foregroundColor(self.isLiked == true ? Color.red : Color.primary )
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "message")
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "paperplane")
-                }
-                
-                Spacer()
-                
-                Button {
-                    self.isBookmarked.toggle()
-                } label: {
-                    Image(systemName: self.isBookmarked == true ? "bookmark.fill" : "bookmark")
-                }
-            }
-            .font(.callout)
-            .foregroundColor(Color.primary)
-            .padding(.horizontal)
         }
-        .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
     }
     
     func getActionSheet() -> ActionSheet {
