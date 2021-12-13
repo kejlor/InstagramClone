@@ -40,10 +40,10 @@ struct CompletePostView: View {
     @State private var actionSheetOptions: ActionSheetOptions = .isOtherPost
     @StateObject var completePostViewModel = CompletePostViewModel()
     
-    let nickName: String
-    let avatar: String
-    let postedImages: [String]
-    var id = UUID()
+//    let nickName: String
+//    let avatar: String
+//    let postedImages: [String]
+//    var id = UUID()
     
     enum ActionSheetOptions {
         case isMyPost, isOtherPost
@@ -53,65 +53,64 @@ struct CompletePostView: View {
         
         VStack(spacing: 5) {
             ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
-                
-            }
-            HStack {
-                Image(avatar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 30, height: 30)
-                    .clipShape(Circle())
-                
-                Text(nickName)
-                    .font(.caption)
-                    .bold()
-                
-                Spacer()
-                
-                Button {
-                    actionSheetOptions = .isOtherPost
-                    showActionSheet.toggle()
-                } label: {
-                    Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
-                }
-                .foregroundColor(Color.primary)
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 5)
-            
-            GeometryReader { geo in
-                ZStack {
-                    TabView {
-                        ForEach(0..<postedImages.count,
-                                id: \.self) { image in
-                            Image(postedImages[image])
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: geo.size.width, height: geo.size.height)
-                                .onTapGesture(count: 2) {
-                                    isTapped.toggle()
-                                    isLiked.toggle()
-                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                        isTapped.toggle()
-                                    }
-                                }
-                        }
-                    }
-                    .tabViewStyle(PageTabViewStyle())
-                    
-                    Image(systemName: "heart.fill")
+                HStack {
+                    Image(completePost.avatar)
                         .resizable()
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .foregroundColor(.white)
-                        .scaleEffect(animationAmount)
-                        .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
-                        .onAppear {
-                            animationAmount = 1.2
-                        }
-                        .opacity(isTapped && isLiked ? 1.0 : 0.0)
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .clipShape(Circle())
+                    
+                    Text(completePost.nickName)
+                        .font(.caption)
+                        .bold()
+                    
+                    Spacer()
+                    
+                    Button {
+                        actionSheetOptions = .isOtherPost
+                        showActionSheet.toggle()
+                    } label: {
+                        Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+                    }
+                    .foregroundColor(Color.primary)
                 }
+                .padding(.horizontal)
+                .padding(.bottom, 5)
+                
+                GeometryReader { geo in
+                    ZStack {
+                        TabView {
+                            ForEach(0..<completePost.postedImages.count,
+                                    id: \.self) { image in
+                                Image(completePost.postedImages[image])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                                    .onTapGesture(count: 2) {
+                                        isTapped.toggle()
+                                        isLiked.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                            isTapped.toggle()
+                                        }
+                                    }
+                            }
+                        }
+                        .tabViewStyle(PageTabViewStyle())
+                        
+                        Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 50, height: 50, alignment: .center)
+                            .foregroundColor(.white)
+                            .scaleEffect(animationAmount)
+                            .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                            .onAppear {
+                                animationAmount = 1.2
+                            }
+                            .opacity(isTapped && isLiked ? 1.0 : 0.0)
+                    }
+                }
+                .frame(height: 400)
             }
-            .frame(height: 400)
             
             HStack {
                 
@@ -190,6 +189,6 @@ struct CompletePostView: View {
 
 struct CompletePostView_Previews: PreviewProvider {
     static var previews: some View {
-        CompletePostView(nickName: "lisa", avatar: "lisa1", postedImages: ["ben", "lisa1", "lisa2"])
+        CompletePostView()
     }
 }

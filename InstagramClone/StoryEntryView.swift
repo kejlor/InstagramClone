@@ -34,55 +34,55 @@ class StoryEntryViewModel: ObservableObject {
 struct StoryEntryView: View {
     
     @State private var showSheet = false
-    @State private var nickName = ""
-    @State private var avatar = ""
-    var id = UUID()
+//    @State private var nickName = ""
+//    @State private var avatar = ""
+//    var id = UUID()
     @StateObject var storyEntryViewModel = StoryEntryViewModel()
     
-    init( nickName: String, avatar: String) {
-        _nickName = State(wrappedValue: nickName)
-        _avatar = State(wrappedValue: avatar)
-    }
+//    init( nickName: String, avatar: String) {
+//        _nickName = State(wrappedValue: nickName)
+//        _avatar = State(wrappedValue: avatar)
+//    }
     
     var body: some View {
-        Button {
-            showSheet.toggle()
-        } label : {
-            ForEach(storyEntryViewModel.storyEntriesArray, id: \.id) { storyEntry in
-                
-            }
-            VStack {
-                ZStack(alignment: .center) {
-                    Image(avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
+        
+        ForEach(storyEntryViewModel.storyEntriesArray, id: \.id) { storyEntry in
+            Button {
+                showSheet.toggle()
+            } label : {
+                VStack {
+                    ZStack(alignment: .center) {
+                        Image(storyEntry.avatar)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                        
+                        Circle()
+                            .stroke(
+                                AngularGradient(
+                                    gradient: .init(colors: [Color.orange, Color.pink]),
+                                    center: .center))
+                            .frame(width: 85, height: 85)
+                    }
                     
-                    Circle()
-                        .stroke(
-                            AngularGradient(
-                                gradient: .init(colors: [Color.orange, Color.pink]),
-                                center: .center))
-                        .frame(width: 85, height: 85)
+                    Text(storyEntry.nickName)
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: 90)
                 }
-                
-                Text(nickName)
-                    .font(.headline)
-                    .foregroundColor(.primary)
-                    .fontWeight(.bold)
-                    .frame(maxWidth: 90)
-            }
-            .frame(maxWidth: 90)
-            .padding(5)
-        }.fullScreenCover(isPresented: $showSheet, content: {
-            StoryScreenView(nickName: $nickName, avatar: $avatar)
-        })
+                .frame(maxWidth: 90)
+                .padding(5)
+            }.fullScreenCover(isPresented: $showSheet, content: {
+//                StoryScreenView(nickName: $storyEntry.nickName, avatar: $storyEntry.avatar)
+            })
+        }
     }
 }
 
 struct StoryEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryEntryView(nickName: "ben", avatar: "ben")
+        StoryEntryView()
     }
 }
