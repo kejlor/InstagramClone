@@ -37,7 +37,7 @@ struct ContentView: View {
     
     var storyLayer: some View {
         ScrollView(.horizontal,showsIndicators: false) {
-            HStack(spacing: 20) {
+            LazyHStack(spacing: 20) {
                 ForEach(storyEntries, id: \.id) { storyEntry in
                     storyEntry
                 }
