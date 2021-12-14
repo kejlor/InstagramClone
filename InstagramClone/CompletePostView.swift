@@ -12,6 +12,8 @@ struct CompletePost {
     let nickName: String
     let avatar: String
     let postedImages: [String]
+    var isLiked = false
+    var isBookmarked = false
 }
 
 class CompletePostViewModel: ObservableObject {
@@ -32,8 +34,11 @@ class CompletePostViewModel: ObservableObject {
 
 struct CompletePostView: View {
     
-    @State private var isLiked = false
-    @State private var isBookmarked = false
+    //TODO:
+    /*
+     1) Make states isLiked, isBookmarked, isTapped to object
+     */
+    
     @State private var isTapped = false
     @State private var animationAmount: CGFloat = 1
     @State private var showActionSheet = false
@@ -45,7 +50,7 @@ struct CompletePostView: View {
     }
     
     var body: some View {
-        
+
         ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
             VStack(spacing: 5) {
                 
@@ -102,18 +107,18 @@ struct CompletePostView: View {
                             .onAppear {
                                 animationAmount = 1.2
                             }
-                            .opacity(isTapped && isLiked ? 1.0 : 0.0)
+                            .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
                     }
                 }
                 .frame(height: 400)
                 HStack {
                     
                     Button {
-                        self.isLiked.toggle()
+                        self.completePost.isLiked.toggle()
                     } label: {
-                        Image(systemName: self.isLiked == true ? "heart.fill" : "heart")
+                        Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
                     }
-                    .foregroundColor(self.isLiked == true ? Color.red : Color.primary )
+                    .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
                     
                     Button {
                         
@@ -130,9 +135,9 @@ struct CompletePostView: View {
                     Spacer()
                     
                     Button {
-                        self.isBookmarked.toggle()
+                        self.completePost.isBookmarked.toggle()
                     } label: {
-                        Image(systemName: self.isBookmarked == true ? "bookmark.fill" : "bookmark")
+                        Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
                     }
                 }
                 .font(.callout)
