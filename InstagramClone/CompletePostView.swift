@@ -30,7 +30,13 @@ class CompletePostViewModel: ObservableObject {
             CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"]),
             CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2", "lisa1"])])
     }
+    
+    func changeIsLiked(completePost: CompletePost) {
+        completePost.isLiked.toggle()
+    }
 }
+
+// MARK: COMPONENTS 
 
 struct CompletePostView: View {
     
@@ -54,8 +60,8 @@ struct CompletePostView: View {
             ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
                 VStack(spacing: 5) {
                     postHeaderElements(avatar: completePost.avatar, nickName: completePost.nickName)
-                    postBodyElements(postedImages: completePost.postedImages, isLiked: completePost.isLiked)
-                    postFootElements(isLiked: completePost.isLiked, isBookmarked: completePost.isBookmarked)
+                    postBodyElements(postedImages: completePost.postedImages)
+                    postFootElements()
                 }
                 .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
                 
@@ -63,6 +69,17 @@ struct CompletePostView: View {
         }
     }
     
+    }
+
+struct CompletePostView_Previews: PreviewProvider {
+    static var previews: some View {
+        CompletePostView()
+    }
+}
+
+// MARK: FUNCTIONS
+
+extension CompletePostView {
     func postHeaderElements(avatar: String, nickName: String) -> some View {
         HStack {
             Image(avatar)
@@ -127,39 +144,42 @@ struct CompletePostView: View {
         }
     }
     
-    func postFootElements(isLiked: Bool, isBookmarked: Bool) -> some View {
-        HStack {
+    func postFootElements() -> some View {
+        
+        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+            HStack {
 
-            Button {
-                completePost.isLiked.toggle()
-            } label: {
-                Image(systemName: isLiked == true ? "heart.fill" : "heart")
-            }
-            .foregroundColor(isLiked == true ? Color.red : Color.primary )
-            
-            Button {
+                Button {
+                    completePost.isLiked.toggle()
+                } label: {
+                    Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
+                }
+                .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
                 
-            } label: {
-                Image(systemName: "message")
-            }
-            
-            Button {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "message")
+                }
                 
-            } label: {
-                Image(systemName: "paperplane")
+                Button {
+                    
+                } label: {
+                    Image(systemName: "paperplane")
+                }
+                
+                Spacer()
+                
+                Button {
+                    completePost.isBookmarked.toggle()
+                } label: {
+                    Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
+                }
             }
-            
-            Spacer()
-            
-            Button {
-                isBookmarked.toggle()
-            } label: {
-                Image(systemName: isBookmarked == true ? "bookmark.fill" : "bookmark")
-            }
+            .font(.callout)
+            .foregroundColor(Color.primary)
+            .padding(.horizontal)
         }
-        .font(.callout)
-        .foregroundColor(Color.primary)
-        .padding(.horizontal)
     }
     
     func getActionSheet() -> ActionSheet {
@@ -193,16 +213,11 @@ struct CompletePostView: View {
             return createActionSheetButtons(title: title, buttons: [linkButton, shareButton, reportButton, whyAreYouSeeingThisButton , unfollowButton, cancelButton])
         }
     }
+    
     func createActionSheetButtons(title: Text, buttons : [ActionSheet.Button]) -> ActionSheet {
         return ActionSheet(
             title: title,
             message: nil,
             buttons: buttons)
-    }
-}
-
-struct CompletePostView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompletePostView()
     }
 }
