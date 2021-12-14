@@ -50,103 +50,114 @@ struct CompletePostView: View {
     }
     
     var body: some View {
-
-        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
-            VStack(spacing: 5) {
+        LazyVStack {
+            ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+                VStack(spacing: 5) {
+                    postHeaderElements
+                    postBodyElements
+                    postFootElements
+                }
+                .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
                 
-                HStack {
-                    Image(completePost.avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                        .clipShape(Circle())
-                    
-                    Text(completePost.nickName)
-                        .font(.caption)
-                        .bold()
-                    
-                    Spacer()
-                    
-                    Button {
-                        actionSheetOptions = .isOtherPost
-                        showActionSheet.toggle()
-                    } label: {
-                        Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
-                    }
-                    .foregroundColor(Color.primary)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 5)
-                
-                GeometryReader { geo in
-                    ZStack {
-                        TabView {
-                            ForEach(0..<completePost.postedImages.count,
-                                    id: \.self) { image in
-                                Image(completePost.postedImages[image])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: geo.size.width, height: geo.size.height)
-                                    .onTapGesture(count: 2) {
-                                        isTapped.toggle()
-                                        isLiked.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                            isTapped.toggle()
-                                        }
-                                    }
-                            }
-                        }
-                        .tabViewStyle(PageTabViewStyle())
-                        
-                        Image(systemName: "heart.fill")
-                            .resizable()
-                            .frame(width: 50, height: 50, alignment: .center)
-                            .foregroundColor(.white)
-                            .scaleEffect(animationAmount)
-                            .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
-                            .onAppear {
-                                animationAmount = 1.2
-                            }
-                            .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
-                    }
-                }
-                .frame(height: 400)
-                HStack {
-                    
-                    Button {
-                        self.completePost.isLiked.toggle()
-                    } label: {
-                        Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
-                    }
-                    .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "message")
-                    }
-                    
-                    Button {
-                        
-                    } label: {
-                        Image(systemName: "paperplane")
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        self.completePost.isBookmarked.toggle()
-                    } label: {
-                        Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
-                    }
-                }
-                .font(.callout)
-                .foregroundColor(Color.primary)
-                .padding(.horizontal)
             }
-            .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
-            
         }
+    }
+    
+    var postHeaderElements: some View {
+        HStack {
+            Image(completePost.avatar)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 30, height: 30)
+                .clipShape(Circle())
+            
+            Text(completePost.nickName)
+                .font(.caption)
+                .bold()
+            
+            Spacer()
+            
+            Button {
+                actionSheetOptions = .isOtherPost
+                showActionSheet.toggle()
+            } label: {
+                Image(systemName: "ellipsis").rotationEffect(.degrees(-90))
+            }
+            .foregroundColor(Color.primary)
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 5)
+    }
+    
+    var postBodyElements: some View {
+        GeometryReader { geo in
+            ZStack {
+                TabView {
+                    ForEach(0..<completePost.postedImages.count,
+                            id: \.self) { image in
+                        Image(completePost.postedImages[image])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .onTapGesture(count: 2) {
+                                isTapped.toggle()
+                                isLiked.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                    isTapped.toggle()
+                                }
+                            }
+                    }
+                }
+                .tabViewStyle(PageTabViewStyle())
+                
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50, alignment: .center)
+                    .foregroundColor(.white)
+                    .scaleEffect(animationAmount)
+                    .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                    .onAppear {
+                        animationAmount = 1.2
+                    }
+                    .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
+            }
+        }
+        .frame(height: 400)
+    }
+    
+    var postFootElements: some View {
+        HStack {
+
+            Button {
+                self.completePost.isLiked.toggle()
+            } label: {
+                Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
+            }
+            .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "message")
+            }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "paperplane")
+            }
+            
+            Spacer()
+            
+            Button {
+                self.completePost.isBookmarked.toggle()
+            } label: {
+                Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
+            }
+        }
+        .font(.callout)
+        .foregroundColor(Color.primary)
+        .padding(.horizontal)
     }
     
     func getActionSheet() -> ActionSheet {
