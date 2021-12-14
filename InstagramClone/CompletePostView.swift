@@ -53,9 +53,9 @@ struct CompletePostView: View {
         LazyVStack {
             ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
                 VStack(spacing: 5) {
-                    postHeaderElements
-                    postBodyElements
-                    postFootElements
+                    postHeaderElements(avatar: completePost.avatar, nickName: completePost.nickName)
+                    postBodyElements(postedImages: completePost.postedImages, isLiked: completePost.isLiked)
+                    postFootElements(isLiked: completePost.isLiked, isBookmarked: completePost.isBookmarked)
                 }
                 .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
                 
@@ -63,15 +63,15 @@ struct CompletePostView: View {
         }
     }
     
-    var postHeaderElements: some View {
+    func postHeaderElements(avatar: String, nickName: String) -> some View {
         HStack {
-            Image(completePost.avatar)
+            Image(avatar)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 30, height: 30)
                 .clipShape(Circle())
             
-            Text(completePost.nickName)
+            Text(nickName)
                 .font(.caption)
                 .bold()
             
@@ -89,13 +89,13 @@ struct CompletePostView: View {
         .padding(.bottom, 5)
     }
     
-    var postBodyElements: some View {
+    func postBodyElements(postedImages: [String], isLiked: Bool) -> some View {
         GeometryReader { geo in
             ZStack {
                 TabView {
-                    ForEach(0..<completePost.postedImages.count,
+                    ForEach(0..<postedImages.count,
                             id: \.self) { image in
-                        Image(completePost.postedImages[image])
+                        Image(postedImages[image])
                             .resizable()
                             .scaledToFit()
                             .frame(width: geo.size.width, height: geo.size.height)
@@ -119,21 +119,21 @@ struct CompletePostView: View {
                     .onAppear {
                         animationAmount = 1.2
                     }
-                    .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
+                    .opacity(isTapped && isLiked ? 1.0 : 0.0)
             }
         }
         .frame(height: 400)
     }
     
-    var postFootElements: some View {
+    func postFootElements(isLiked: Bool, isBookmarked: Bool) -> some View {
         HStack {
 
             Button {
-                self.completePost.isLiked.toggle()
+                isLiked.toggle()
             } label: {
-                Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
+                Image(systemName: isLiked == true ? "heart.fill" : "heart")
             }
-            .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
+            .foregroundColor(isLiked == true ? Color.red : Color.primary )
             
             Button {
                 
@@ -150,9 +150,9 @@ struct CompletePostView: View {
             Spacer()
             
             Button {
-                self.completePost.isBookmarked.toggle()
+                isBookmarked.toggle()
             } label: {
-                Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
+                Image(systemName: isBookmarked == true ? "bookmark.fill" : "bookmark")
             }
         }
         .font(.callout)
