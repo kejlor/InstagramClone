@@ -89,47 +89,49 @@ struct CompletePostView: View {
         .padding(.bottom, 5)
     }
     
-    func postBodyElements(postedImages: [String], isLiked: Bool) -> some View {
-        GeometryReader { geo in
-            ZStack {
-                TabView {
-                    ForEach(0..<postedImages.count,
-                            id: \.self) { image in
-                        Image(postedImages[image])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .onTapGesture(count: 2) {
-                                isTapped.toggle()
-                                isLiked.toggle()
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+    func postBodyElements(postedImages: [String]) -> some View {
+        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+            GeometryReader { geo in
+                ZStack {
+                    TabView {
+                        ForEach(0..<postedImages.count,
+                                id: \.self) { image in
+                            Image(postedImages[image])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: geo.size.width, height: geo.size.height)
+                                .onTapGesture(count: 2) {
                                     isTapped.toggle()
+                                    completePost.isLiked.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                        isTapped.toggle()
+                                    }
                                 }
-                            }
+                        }
                     }
+                    .tabViewStyle(PageTabViewStyle())
+                    
+                    Image(systemName: "heart.fill")
+                        .resizable()
+                        .frame(width: 50, height: 50, alignment: .center)
+                        .foregroundColor(.white)
+                        .scaleEffect(animationAmount)
+                        .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                        .onAppear {
+                            animationAmount = 1.2
+                        }
+                        .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
                 }
-                .tabViewStyle(PageTabViewStyle())
-                
-                Image(systemName: "heart.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50, alignment: .center)
-                    .foregroundColor(.white)
-                    .scaleEffect(animationAmount)
-                    .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
-                    .onAppear {
-                        animationAmount = 1.2
-                    }
-                    .opacity(isTapped && isLiked ? 1.0 : 0.0)
             }
+            .frame(height: 400)
         }
-        .frame(height: 400)
     }
     
     func postFootElements(isLiked: Bool, isBookmarked: Bool) -> some View {
         HStack {
 
             Button {
-                isLiked.toggle()
+                completePost.isLiked.toggle()
             } label: {
                 Image(systemName: isLiked == true ? "heart.fill" : "heart")
             }
