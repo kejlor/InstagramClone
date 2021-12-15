@@ -22,11 +22,11 @@ struct CompletePostView: View {
     
     var body: some View {
         LazyVStack {
-            ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+            ForEach(completePostViewModel.completePostsArray, id: \.id) { completePostModel in
                 VStack(spacing: 5) {
-                    postHeaderElements(avatar: completePost.avatar, nickName: completePost.nickName)
-                    postBodyElements(completePost: completePost)
-                    postFootElements(completePost: completePost)
+                    postHeaderElements(avatar: completePostModel.avatar, nickName: completePostModel.nickName)
+                    postBodyElements(completePostModel: completePostModel)
+                    postFootElements(completePostModel: completePostModel)
                 }
                 .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
                 
@@ -71,19 +71,19 @@ extension CompletePostView {
         .padding(.bottom, 5)
     }
     
-    func postBodyElements(completePost: CompletePostModel) -> some View {
+    func postBodyElements(completePostModel: CompletePostModel) -> some View {
             GeometryReader { geo in
                 ZStack {
                     TabView {
-                        ForEach(0..<completePost.postedImages.count,
+                        ForEach(0..<completePostModel.postedImages.count,
                                 id: \.self) { image in
-                            Image(completePost.postedImages[image])
+                            Image(completePostModel.postedImages[image])
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: geo.size.width, height: geo.size.height)
                                 .onTapGesture(count: 2) {
                                     isTapped.toggle()
-                                    completePost.isLiked.toggle()
+                                    completePostViewModel.changeIsLiked(completePostModel: completePostModel)
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                                         isTapped.toggle()
                                     }
@@ -101,21 +101,21 @@ extension CompletePostView {
                         .onAppear {
                             animationAmount = 1.2
                         }
-                        .opacity(isTapped && completePost.isLiked ? 1.0 : 0.0)
+                        .opacity(isTapped && completePostModel.isLiked ? 1.0 : 0.0)
                 }
             }
             .frame(height: 400)
     }
     
-    func postFootElements(completePost: CompletePostModel) -> some View {
+    func postFootElements(completePostModel: CompletePostModel) -> some View {
             HStack {
 
                 Button {
-                    completePost.isLiked.toggle()
+                    completePostViewModel.changeIsLiked(completePostModel: completePostModel)
                 } label: {
-                    Image(systemName: completePost.isLiked == true ? "heart.fill" : "heart")
+                    Image(systemName: completePostModel.isLiked == true ? "heart.fill" : "heart")
                 }
-                .foregroundColor(completePost.isLiked == true ? Color.red : Color.primary )
+                .foregroundColor(completePostModel.isLiked == true ? Color.red : Color.primary )
                 
                 Button {
                     
@@ -132,9 +132,9 @@ extension CompletePostView {
                 Spacer()
                 
                 Button {
-                    completePost.isBookmarked.toggle()
+                    completePostViewModel.changeIsBookmarked(completePostModel: completePostModel)
                 } label: {
-                    Image(systemName: completePost.isBookmarked == true ? "bookmark.fill" : "bookmark")
+                    Image(systemName: completePostModel.isBookmarked == true ? "bookmark.fill" : "bookmark")
                 }
             }
             .font(.callout)

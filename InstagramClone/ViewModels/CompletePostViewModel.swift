@@ -22,7 +22,15 @@ class CompletePostViewModel: ObservableObject {
             CompletePostModel(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2", "lisa1"])])
     }
     
-    func changeIsLiked(completePost: CompletePostModel) {
-        completePost.isLiked.toggle()
+    func changeIsLiked(completePostModel: CompletePostModel) {
+        if let index = completePostsArray.firstIndex(where: { $0.id == completePostModel.id}) {
+            completePostsArray[index] = completePostModel.updateLike()
+        }
+    }
+    
+    func changeIsBookmarked(completePostModel: CompletePostModel) {
+        if let index = completePostsArray.firstIndex(where: { $0.id == completePostModel.id}) {
+            completePostsArray[index] = completePostModel.updateBookmarked()
+        }
     }
 }

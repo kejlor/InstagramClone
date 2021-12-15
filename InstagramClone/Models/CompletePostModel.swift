@@ -7,17 +7,28 @@
 
 import Foundation
 
-class CompletePostModel {
-    let id = UUID()
+struct CompletePostModel {
+    let id: UUID
     let nickName: String
     let avatar: String
     let postedImages: [String]
-    var isLiked = false
-    var isBookmarked = false
+    let isLiked: Bool
+    let isBookmarked: Bool
     
-    init(nickName: String, avatar: String, postedImages: [String]) {
+    init(id: UUID = UUID(), nickName: String, avatar: String, postedImages: [String], isLiked: Bool = false, isBookmarked: Bool = false) {
+        self.id = id
         self.nickName = nickName
         self.avatar = avatar
         self.postedImages = postedImages
+        self.isLiked = isLiked
+        self.isBookmarked = isBookmarked
+    }
+    
+    func updateLike() -> CompletePostModel {
+        return CompletePostModel(id: id, nickName: nickName, avatar: avatar, postedImages: postedImages, isLiked: !isLiked, isBookmarked: isBookmarked)
+    }
+    
+    func updateBookmarked() -> CompletePostModel {
+        return CompletePostModel(id: id, nickName: nickName, avatar: avatar, postedImages: postedImages, isLiked: isLiked, isBookmarked: !isBookmarked)
     }
 }
