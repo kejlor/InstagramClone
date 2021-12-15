@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-struct StoryEntry {
-    let id = UUID()
-    let nickName: String
-    let avatar: String
-}
-
-class StoryEntryViewModel: ObservableObject {
-    @Published var storyEntriesArray: [StoryEntry] = []
-    
-    init() {
-        getStoryEntries()
-    }
-    
-    func getStoryEntries() {
-        self.storyEntriesArray.append(contentsOf: [
-            StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
-            StoryEntry(nickName: "lisa", avatar: "lisa1"),
-            StoryEntry(nickName: "fake_lisa", avatar: "lisa2"),
-            StoryEntry(nickName: "best_left_wingback", avatar: "ben"),
-            StoryEntry(nickName: "lisa", avatar: "lisa1"),
-            StoryEntry(nickName: "fake_lisa", avatar: "lisa2")])
-    }
-}
-
 struct StoryEntryView: View {
     
     @State private var showSheet = false
