@@ -7,13 +7,19 @@
 
 import SwiftUI
 
-struct CompletePost {
+class CompletePost {
     let id = UUID()
     let nickName: String
     let avatar: String
     let postedImages: [String]
     var isLiked = false
     var isBookmarked = false
+    
+    init(nickName: String, avatar: String, postedImages: [String]) {
+        self.nickName = nickName
+        self.avatar = avatar
+        self.postedImages = postedImages
+    }
 }
 
 class CompletePostViewModel: ObservableObject {
@@ -60,8 +66,8 @@ struct CompletePostView: View {
             ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
                 VStack(spacing: 5) {
                     postHeaderElements(avatar: completePost.avatar, nickName: completePost.nickName)
-                    postBodyElements(postedImages: completePost.postedImages)
-                    postFootElements()
+                    postBodyElements(completePost: completePost)
+                    postFootElements(completePost: completePost)
                 }
                 .actionSheet(isPresented: $showActionSheet, content: getActionSheet)
                 
@@ -106,14 +112,13 @@ extension CompletePostView {
         .padding(.bottom, 5)
     }
     
-    func postBodyElements(postedImages: [String]) -> some View {
-        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+    func postBodyElements(completePost: CompletePost) -> some View {
             GeometryReader { geo in
                 ZStack {
                     TabView {
-                        ForEach(0..<postedImages.count,
+                        ForEach(0..<completePost.postedImages.count,
                                 id: \.self) { image in
-                            Image(postedImages[image])
+                            Image(completePost.postedImages[image])
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: geo.size.width, height: geo.size.height)
@@ -141,12 +146,9 @@ extension CompletePostView {
                 }
             }
             .frame(height: 400)
-        }
     }
     
-    func postFootElements() -> some View {
-        
-        ForEach(completePostViewModel.completePostsArray, id: \.id) { completePost in
+    func postFootElements(completePost: CompletePost) -> some View {
             HStack {
 
                 Button {
@@ -180,7 +182,6 @@ extension CompletePostView {
             .foregroundColor(Color.primary)
             .padding(.horizontal)
         }
-    }
     
     func getActionSheet() -> ActionSheet {
         
