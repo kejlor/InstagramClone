@@ -1,14 +1,13 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  InstagramClone
 //
-//  Created by Bartosz Wojtkowiak on 08/12/2021.
+//  Created by Bartosz Wojtkowiak on 15/12/2021.
 //
 
 import SwiftUI
 
-struct ContentView: View {
-    
+struct HomeView: View {
     var body: some View {
         Section(header: headerLayer) {
             ScrollView {
@@ -41,9 +40,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .preferredColorScheme(.dark)
+        HomeView()
     }
 }
