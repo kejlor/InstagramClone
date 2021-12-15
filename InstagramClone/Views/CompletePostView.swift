@@ -6,50 +6,9 @@
 //
 
 import SwiftUI
-
-class CompletePost {
-    let id = UUID()
-    let nickName: String
-    let avatar: String
-    let postedImages: [String]
-    var isLiked = false
-    var isBookmarked = false
-    
-    init(nickName: String, avatar: String, postedImages: [String]) {
-        self.nickName = nickName
-        self.avatar = avatar
-        self.postedImages = postedImages
-    }
-}
-
-class CompletePostViewModel: ObservableObject {
-    @Published var completePostsArray: [CompletePost] = []
-    
-    init() {
-        getCompletePosts()
-    }
-    
-    func getCompletePosts() {
-        self.completePostsArray.append(contentsOf: [
-            CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben", "lisa1", "lisa2"]),
-            CompletePost(nickName: "best_left_wingback", avatar: "ben", postedImages: ["ben"]),
-            CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa1"]),
-            CompletePost(nickName: "lalisa", avatar: "lisa1", postedImages: ["lisa2", "lisa1"])])
-    }
-    
-    func changeIsLiked(completePost: CompletePost) {
-        completePost.isLiked.toggle()
-    }
-}
-
 // MARK: COMPONENTS 
 
 struct CompletePostView: View {
-    
-    //TODO:
-    /*
-     1) Make states isLiked, isBookmarked, isTapped to object
-     */
     
     @State private var isTapped = false
     @State private var animationAmount: CGFloat = 1
@@ -112,7 +71,7 @@ extension CompletePostView {
         .padding(.bottom, 5)
     }
     
-    func postBodyElements(completePost: CompletePost) -> some View {
+    func postBodyElements(completePost: CompletePostModel) -> some View {
             GeometryReader { geo in
                 ZStack {
                     TabView {
@@ -148,7 +107,7 @@ extension CompletePostView {
             .frame(height: 400)
     }
     
-    func postFootElements(completePost: CompletePost) -> some View {
+    func postFootElements(completePost: CompletePostModel) -> some View {
             HStack {
 
                 Button {
