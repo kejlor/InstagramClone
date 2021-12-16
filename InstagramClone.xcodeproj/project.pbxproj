@@ -20,6 +20,7 @@
 		E9920D2827669FBE00899A00 /* CompletePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9920D2727669FBE00899A00 /* CompletePostView.swift */; };
 		E9920D2A2766A0AE00899A00 /* StoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9920D292766A0AE00899A00 /* StoryScreenView.swift */; };
 		E9F8777F276B9BD000BC21DE /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F8777E276B9BD000BC21DE /* ProfileModel.swift */; };
+		E9F87781276B9D1600BC21DE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F87780276B9D1600BC21DE /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		E9920D2727669FBE00899A00 /* CompletePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePostView.swift; sourceTree = "<group>"; };
 		E9920D292766A0AE00899A00 /* StoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScreenView.swift; sourceTree = "<group>"; };
 		E9F8777E276B9BD000BC21DE /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		E9F87780276B9D1600BC21DE /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				E90700DA276A8F17000333D9 /* StoryEntryViewModel.swift */,
 				E90700DE276A9022000333D9 /* CompletePostViewModel.swift */,
+				E9F87780276B9D1600BC21DE /* ProfileViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 				E9F8777F276B9BD000BC21DE /* ProfileModel.swift in Sources */,
 				E90700DB276A8F17000333D9 /* StoryEntryViewModel.swift in Sources */,
 				E92A3E222760F57C0017ABBD /* InstagramCloneApp.swift in Sources */,
+				E9F87781276B9D1600BC21DE /* ProfileViewModel.swift in Sources */,
 				E90700D9276A8EDF000333D9 /* StoryEntryModel.swift in Sources */,
 				E90700DD276A8FE5000333D9 /* CompletePostModel.swift in Sources */,
 				E90700DF276A9022000333D9 /* CompletePostViewModel.swift in Sources */,
