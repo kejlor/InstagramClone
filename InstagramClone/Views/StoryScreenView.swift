@@ -32,7 +32,7 @@ struct StoryScreenView: View {
                             .frame(width: 30, height: 30)
                             .clipShape(Circle())
                         
-                        Text(storyEntry.nickName)
+                        Text(storyEntry.nickname)
                             .font(.caption)
                             .bold()
                             .foregroundColor(.white)

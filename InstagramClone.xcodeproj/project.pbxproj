@@ -19,6 +19,7 @@
 		E9920D2627669EA700899A00 /* StoryEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9920D2527669EA700899A00 /* StoryEntryView.swift */; };
 		E9920D2827669FBE00899A00 /* CompletePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9920D2727669FBE00899A00 /* CompletePostView.swift */; };
 		E9920D2A2766A0AE00899A00 /* StoryScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9920D292766A0AE00899A00 /* StoryScreenView.swift */; };
+		E9F8777F276B9BD000BC21DE /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F8777E276B9BD000BC21DE /* ProfileModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		E9920D2527669EA700899A00 /* StoryEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEntryView.swift; sourceTree = "<group>"; };
 		E9920D2727669FBE00899A00 /* CompletePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePostView.swift; sourceTree = "<group>"; };
 		E9920D292766A0AE00899A00 /* StoryScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScreenView.swift; sourceTree = "<group>"; };
+		E9F8777E276B9BD000BC21DE /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			children = (
 				E90700D8276A8EDF000333D9 /* StoryEntryModel.swift */,
 				E90700DC276A8FE5000333D9 /* CompletePostModel.swift */,
+				E9F8777E276B9BD000BC21DE /* ProfileModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				E9920D2827669FBE00899A00 /* CompletePostView.swift in Sources */,
 				E9614E09276A66C400FE2485 /* HomeView.swift in Sources */,
 				E9920D2427669E7300899A00 /* HeaderElementsView.swift in Sources */,
+				E9F8777F276B9BD000BC21DE /* ProfileModel.swift in Sources */,
 				E90700DB276A8F17000333D9 /* StoryEntryViewModel.swift in Sources */,
 				E92A3E222760F57C0017ABBD /* InstagramCloneApp.swift in Sources */,
 				E90700D9276A8EDF000333D9 /* StoryEntryModel.swift in Sources */,

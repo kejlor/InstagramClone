@@ -9,6 +9,6 @@ import Foundation
 
 struct StoryEntryModel: Identifiable {
     let id = UUID()
-    let nickName: String
+    let nickname: String
     let avatar: String
 }

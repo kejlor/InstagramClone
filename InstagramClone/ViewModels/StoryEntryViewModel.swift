@@ -16,11 +16,11 @@ class StoryEntryViewModel: ObservableObject {
     
     func getStoryEntries() {
         self.storyEntriesArray.append(contentsOf: [
-            StoryEntryModel(nickName: "best_left_wingback", avatar: "ben"),
-            StoryEntryModel(nickName: "lisa", avatar: "lisa1"),
-            StoryEntryModel(nickName: "fake_lisa", avatar: "lisa2"),
-            StoryEntryModel(nickName: "best_left_wingback", avatar: "ben"),
-            StoryEntryModel(nickName: "lisa", avatar: "lisa1"),
-            StoryEntryModel(nickName: "fake_lisa", avatar: "lisa2")])
+            StoryEntryModel(nickname: "best_left_wingback", avatar: "ben"),
+            StoryEntryModel(nickname: "lisa", avatar: "lisa1"),
+            StoryEntryModel(nickname: "fake_lisa", avatar: "lisa2"),
+            StoryEntryModel(nickname: "best_left_wingback", avatar: "ben"),
+            StoryEntryModel(nickname: "lisa", avatar: "lisa1"),
+            StoryEntryModel(nickname: "fake_lisa", avatar: "lisa2")])
     }
 }

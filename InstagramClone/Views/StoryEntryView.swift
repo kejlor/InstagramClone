@@ -34,7 +34,7 @@ struct StoryEntryView: View {
                             .frame(width: 85, height: 85)
                     }
                     
-                    Text(storyEntry.nickName)
+                    Text(storyEntry.nickname)
                         .font(.headline)
                         .foregroundColor(.primary)
                         .fontWeight(.bold)
