@@ -33,8 +33,7 @@ struct CompletePostView: View {
             }
         }
     }
-    
-    }
+}
 
 struct CompletePostView_Previews: PreviewProvider {
     static var previews: some View {
@@ -72,75 +71,75 @@ extension CompletePostView {
     }
     
     func postBodyElements(completePostModel: CompletePostModel) -> some View {
-            GeometryReader { geo in
-                ZStack {
-                    TabView {
-                        ForEach(0..<completePostModel.postedImages.count,
-                                id: \.self) { image in
-                            Image(completePostModel.postedImages[image])
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: geo.size.width, height: geo.size.height)
-                                .onTapGesture(count: 2) {
+        GeometryReader { geo in
+            ZStack {
+                TabView {
+                    ForEach(0..<completePostModel.postedImages.count,
+                            id: \.self) { image in
+                        Image(completePostModel.postedImages[image])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .onTapGesture(count: 2) {
+                                isTapped.toggle()
+                                completePostViewModel.changeIsLiked(completePostModel: completePostModel)
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
                                     isTapped.toggle()
-                                    completePostViewModel.changeIsLiked(completePostModel: completePostModel)
-                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                        isTapped.toggle()
-                                    }
                                 }
-                        }
+                            }
                     }
-                    .tabViewStyle(PageTabViewStyle())
-                    
-                    Image(systemName: "heart.fill")
-                        .resizable()
-                        .frame(width: 50, height: 50, alignment: .center)
-                        .foregroundColor(.white)
-                        .scaleEffect(animationAmount)
-                        .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
-                        .onAppear {
-                            animationAmount = 1.2
-                        }
-                        .opacity(isTapped && completePostModel.isLiked ? 1.0 : 0.0)
                 }
+                .tabViewStyle(PageTabViewStyle())
+                
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .frame(width: 50, height: 50, alignment: .center)
+                    .foregroundColor(.white)
+                    .scaleEffect(animationAmount)
+                    .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                    .onAppear {
+                        animationAmount = 1.2
+                    }
+                    .opacity(isTapped && completePostModel.isLiked ? 1.0 : 0.0)
             }
-            .frame(height: 400)
+        }
+        .frame(height: 400)
     }
     
     func postFootElements(completePostModel: CompletePostModel) -> some View {
-            HStack {
-
-                Button {
-                    completePostViewModel.changeIsLiked(completePostModel: completePostModel)
-                } label: {
-                    Image(systemName: completePostModel.isLiked == true ? "heart.fill" : "heart")
-                }
-                .foregroundColor(completePostModel.isLiked == true ? Color.red : Color.primary )
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "message")
-                }
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "paperplane")
-                }
-                
-                Spacer()
-                
-                Button {
-                    completePostViewModel.changeIsBookmarked(completePostModel: completePostModel)
-                } label: {
-                    Image(systemName: completePostModel.isBookmarked == true ? "bookmark.fill" : "bookmark")
-                }
+        HStack {
+            
+            Button {
+                completePostViewModel.changeIsLiked(completePostModel: completePostModel)
+            } label: {
+                Image(systemName: completePostModel.isLiked == true ? "heart.fill" : "heart")
             }
-            .font(.callout)
-            .foregroundColor(Color.primary)
-            .padding(.horizontal)
+            .foregroundColor(completePostModel.isLiked == true ? Color.red : Color.primary )
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "message")
+            }
+            
+            Button {
+                
+            } label: {
+                Image(systemName: "paperplane")
+            }
+            
+            Spacer()
+            
+            Button {
+                completePostViewModel.changeIsBookmarked(completePostModel: completePostModel)
+            } label: {
+                Image(systemName: completePostModel.isBookmarked == true ? "bookmark.fill" : "bookmark")
+            }
         }
+        .font(.callout)
+        .foregroundColor(Color.primary)
+        .padding(.horizontal)
+    }
     
     func getActionSheet() -> ActionSheet {
         
