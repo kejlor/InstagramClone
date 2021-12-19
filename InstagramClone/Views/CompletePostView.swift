@@ -14,6 +14,7 @@ struct CompletePostView: View {
     @State private var animationAmount: CGFloat = 1
     @State private var showActionSheet = false
     @State private var actionSheetOptions: ActionSheetOptions = .isOtherPost
+    @State private var currentAmount: CGFloat = 0
     @StateObject var completePostViewModel = CompletePostViewModel()
     
     enum ActionSheetOptions {
@@ -71,37 +72,47 @@ extension CompletePostView {
     }
     
     func postBodyElements(completePostModel: CompletePostModel) -> some View {
-        GeometryReader { geo in
-            ZStack {
-                TabView {
-                    ForEach(0..<completePostModel.postedImages.count,
-                            id: \.self) { image in
-                        Image(completePostModel.postedImages[image])
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .onTapGesture(count: 2) {
-                                isTapped.toggle()
-                                completePostViewModel.changeIsLiked(completePostModel: completePostModel)
-                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-                                    isTapped.toggle()
+        ZStack {
+            TabView {
+                ForEach(0..<completePostModel.postedImages.count,
+                        id: \.self) { image in
+                    Image(completePostModel.postedImages[image])
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                        .scaleEffect(1 + currentAmount)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    currentAmount = value - 1
                                 }
+                                .onEnded { value in
+                                    withAnimation(.spring()) {
+                                        currentAmount = 0
+                                    }
+                                }
+                        )
+                        .onTapGesture(count: 2) {
+                            isTapped.toggle()
+                            completePostViewModel.changeIsLiked(completePostModel: completePostModel)
+                            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+                                isTapped.toggle()
                             }
-                    }
+                        }
                 }
-                .tabViewStyle(PageTabViewStyle())
-                
-                Image(systemName: "heart.fill")
-                    .resizable()
-                    .frame(width: 50, height: 50, alignment: .center)
-                    .foregroundColor(.white)
-                    .scaleEffect(animationAmount)
-                    .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
-                    .onAppear {
-                        animationAmount = 1.2
-                    }
-                    .opacity(isTapped && completePostModel.isLiked ? 1.0 : 0.0)
             }
+            .tabViewStyle(PageTabViewStyle())
+            
+            Image(systemName: "heart.fill")
+                .resizable()
+                .frame(width: 50, height: 50, alignment: .center)
+                .foregroundColor(.white)
+                .scaleEffect(animationAmount)
+                .animation(Animation.linear(duration: 0.1).delay(0.4).repeatForever())
+                .onAppear {
+                    animationAmount = 1.2
+                }
+                .opacity(isTapped && completePostModel.isLiked ? 1.0 : 0.0)
         }
         .frame(height: 400)
     }
